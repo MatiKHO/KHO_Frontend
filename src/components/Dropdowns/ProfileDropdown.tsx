@@ -2,6 +2,7 @@ import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@heroui/d
 import { Avatar } from "@heroui/avatar";
 import { useAuth } from "@/hooks/useAuth";
 import { ProfileIcon } from "../icons";
+import React from "react";
 // import { useAuth } from "@/context/AuthContext";
 
 type ProfileDropdownProps = {

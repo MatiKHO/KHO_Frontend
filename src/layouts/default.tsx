@@ -25,13 +25,13 @@ export default function DefaultLayout({
               href="#"
               className="text-gray-500 hover:text-[#c0172b] cursor-pointer"
             >
-              Privacy Policy
+              Política de privacidad
             </Link>
             <Link
               href="#"
               className="text-gray-500 hover:text-[#c0172b] cursor-pointer"
             >
-              Terms of Service
+              Términos de servicio
             </Link>
             <Link isExternal href={siteConfig.links.twitter} title="Twitter">
               <TwitterIcon className="text-default-500 hover:text-[#c0172b]" />
