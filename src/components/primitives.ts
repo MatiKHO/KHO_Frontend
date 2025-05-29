@@ -11,6 +11,8 @@ export const title = tv({
       green: "from-[#6FEE8D] to-[#17c964]",
       pink: "from-[#FF72E1] to-[#F54C7A]",
       foreground: "dark:from-[#FFFFFF] dark:to-[#4B4B4B]",
+      red: "from-[#ff002e] to-[#ff002e]",
+      red_dark: "from-[#c0172b] to-[#c0172b]",
     },
     size: {
       sm: "text-3xl lg:text-4xl",
@@ -34,6 +36,8 @@ export const title = tv({
         "green",
         "pink",
         "foreground",
+        "red",
+        "red_dark",
       ],
       class: "bg-clip-text text-transparent bg-gradient-to-b",
     },
@@ -46,8 +50,35 @@ export const subtitle = tv({
     fullWidth: {
       true: "!w-full",
     },
+    color: {
+      violet: "from-[#FF1CF7] to-[#b249f8]",
+      yellow: "from-[#FF705B] to-[#FFB457]",
+      blue: "from-[#5EA2EF] to-[#0072F5]",
+      cyan: "from-[#00b7fa] to-[#01cfea]",
+      green: "from-[#6FEE8D] to-[#17c964]",
+      pink: "from-[#FF72E1] to-[#F54C7A]",
+      foreground: "dark:from-[#FFFFFF] dark:to-[#4B4B4B]",
+      red: "from-[#ff002e] to-[#ff002e]",
+      red_dark: "from-[#c0172b] to-[#c0172b]",
+    },
   },
   defaultVariants: {
     fullWidth: true,
   },
+  compoundVariants: [
+    {
+      color: [
+        "violet",
+        "yellow",
+        "blue",
+        "cyan",
+        "green",
+        "pink",
+        "foreground",
+        "red",
+        "red_dark",
+      ],
+      class: "bg-clip-text text-transparent bg-gradient-to-b",
+    },
+  ],
 });

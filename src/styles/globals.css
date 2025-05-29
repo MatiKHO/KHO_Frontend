@@ -1,3 +1,26 @@
+@font-face {
+  font-family: 'Quick';
+  src: url('../fonts/Quick.ttf') format('truetype'),
+       url('../fonts/Quick.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Quicksand';
+  src: url('../fonts/Quicksand.otf') format('truetype');
+  font-weight: normal;
+  fonts-style: normal;
+  font-display: swap;
+}
+
+html, body {
+  font-family: 'Quicksand', sans-serif;
+}
+
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

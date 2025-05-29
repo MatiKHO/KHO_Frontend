@@ -1,7 +1,5 @@
-import { Button } from "@heroui/button";
-import { Kbd } from "@heroui/kbd";
+import "@/styles/globals.css";
 import { Link } from "@heroui/link";
-import { Input } from "@heroui/input";
 import {
   Navbar as HeroUINavbar,
   NavbarBrand,
@@ -15,40 +13,32 @@ import { link as linkStyles } from "@heroui/theme";
 import clsx from "clsx";
 
 import { siteConfig } from "@/config/site";
-import { ThemeSwitch } from "@/components/theme-switch";
-import {
-  TwitterIcon,
-  GithubIcon,
-  DiscordIcon,
-  HeartFilledIcon,
-  SearchIcon,
-} from "@/components/icons";
+import { HeartFilledIcon, ShopIcon } from "@/components/icons";
 import { Logo } from "@/components/icons";
+import { useState } from "react";
+import { LoginModal } from "@/components/Modals/Login";
+import { RegisterModal } from "@/components/Modals/Register";
+
+import { ProfileDropdown } from "@/components/Dropdowns/ProfileDropdown";
 
 export const Navbar = () => {
-  const searchInput = (
-    <Input
-      aria-label="Search"
-      classNames={{
-        inputWrapper: "bg-default-100",
-        input: "text-sm",
-      }}
-      endContent={
-        <Kbd className="hidden lg:inline-block" keys={["command"]}>
-          K
-        </Kbd>
-      }
-      labelPlacement="outside"
-      placeholder="Search..."
-      startContent={
-        <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
-      }
-      type="search"
-    />
-  );
+  const [modalState, setModalState] = useState({
+    register: false,
+    login: false,
+  });
+
+  const openRegisterModal = () =>
+    setModalState({ register: true, login: false });
+  const openLoginModal = () => setModalState({ register: false, login: true });
+  const closeModals = () => setModalState({ register: false, login: false });
 
   return (
-    <HeroUINavbar maxWidth="xl" position="sticky">
+    <HeroUINavbar
+      isBlurred={true}
+      maxWidth="xl"
+      position="sticky"
+      style={{ fontFamily: "Quick, sans-serif", backgroundColor: "#c0172b" }}
+    >
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
         <NavbarBrand className="gap-3 max-w-fit">
           <Link
@@ -56,69 +46,69 @@ export const Navbar = () => {
             color="foreground"
             href="/"
           >
-            <Logo />
-            <p className="font-bold text-inherit">ACME</p>
+            <span >
+              <Logo />
+            </span>
+            <p
+              className="font-bold text-inherit hidden sm:block"
+              style={{ color: "#f0f0f0" }}
+            >
+              KUMIHO
+            </p>
           </Link>
         </NavbarBrand>
-        <div className="hidden lg:flex gap-4 justify-start ml-2">
-          {siteConfig.navItems.map((item) => (
-            <NavbarItem key={item.href}>
-              <Link
-                className={clsx(
-                  linkStyles({ color: "foreground" }),
-                  "data-[active=true]:text-primary data-[active=true]:font-medium",
-                )}
-                color="foreground"
-                href={item.href}
-              >
-                {item.label}
-              </Link>
-            </NavbarItem>
-          ))}
-        </div>
       </NavbarContent>
-
+      <NavbarContent
+        className="hidden lg:flex gap-8 justify-center ml-2 flex-1"
+        justify="center"
+      >
+        {siteConfig.navItems.map((item) => (
+          <NavbarItem key={item.href}>
+            <Link
+              className={clsx(
+                linkStyles({ color: "foreground" }),
+                "data-[active=true]:text-primary data-[active=true]:font-medium hover:text-[#0c0c0c]  text-[#f0f0f0]"
+              )}
+              color="foreground"
+              href={item.href}
+            >
+              {item.label}
+            </Link>
+          </NavbarItem>
+        ))}
+      </NavbarContent>
       <NavbarContent
         className="hidden sm:flex basis-1/5 sm:basis-full"
         justify="end"
       >
-        <NavbarItem className="hidden sm:flex gap-2">
-          <Link isExternal href={siteConfig.links.twitter} title="Twitter">
-            <TwitterIcon className="text-default-500" />
-          </Link>
-          <Link isExternal href={siteConfig.links.discord} title="Discord">
-            <DiscordIcon className="text-default-500" />
-          </Link>
-          <Link isExternal href={siteConfig.links.github} title="GitHub">
-            <GithubIcon className="text-default-500" />
-          </Link>
-          <ThemeSwitch />
+        {/* Registro / Inicio sesión */}
+        <NavbarItem>
+          <ProfileDropdown
+            onRegister={openRegisterModal}
+            onLogin={openLoginModal}
+          />
         </NavbarItem>
-        <NavbarItem className="hidden lg:flex">{searchInput}</NavbarItem>
-        <NavbarItem className="hidden md:flex">
-          <Button
-            isExternal
-            as={Link}
-            className="text-sm font-normal text-default-600 bg-default-100"
-            href={siteConfig.links.sponsor}
-            startContent={<HeartFilledIcon className="text-danger" />}
-            variant="flat"
-          >
-            Sponsor
-          </Button>
+
+        {/* Carrito de compras  */}
+        <NavbarItem className="hidden sm:flex gap-4">
+          <Link href={siteConfig.links.cart} title="Shop">
+            <ShopIcon className="text-[#f0f0f0] hover:text-[#0c0c0c]" />
+          </Link>
+        </NavbarItem>
+
+        {/* Lista de deseos  */}
+        <NavbarItem className="hidden sm:flex gap-4">
+          <Link href={siteConfig.links.wishlist} title="Shop">
+            <HeartFilledIcon className="text-[#f0f0f0] hover:text-[#0c0c0c]" />
+          </Link>
         </NavbarItem>
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
-        <Link isExternal href={siteConfig.links.github}>
-          <GithubIcon className="text-default-500" />
-        </Link>
-        <ThemeSwitch />
         <NavbarMenuToggle />
       </NavbarContent>
 
       <NavbarMenu>
-        {searchInput}
         <div className="mx-4 mt-2 flex flex-col gap-2">
           {siteConfig.navMenuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
@@ -130,7 +120,7 @@ export const Navbar = () => {
                       ? "danger"
                       : "foreground"
                 }
-                href="#"
+                href={item.href}
                 size="lg"
               >
                 {item.label}
@@ -139,6 +129,21 @@ export const Navbar = () => {
           ))}
         </div>
       </NavbarMenu>
+
+      {modalState.register && (
+        <RegisterModal
+          isOpen={modalState.register}
+          onClose={closeModals}
+          onOpenLoginModal={() => {
+            setModalState({ register: false, login: true });
+          }}
+        />
+      )}
+      {modalState.login && (
+        <LoginModal isOpen={modalState.login} onClose={closeModals} onOpenRegisterModal={function (): void {
+          throw new Error("Function not implemented.");
+        } } />
+      )}
     </HeroUINavbar>
   );
 };
