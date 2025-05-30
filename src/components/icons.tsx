@@ -1,5 +1,5 @@
 import * as React from "react";
-import logokho from "/logokho.png";
+import logokho from "@/../public/logokho.png";
 
 import { ImgHTMLAttributes } from "react";
 import { IconSvgProps } from "@/types";
@@ -291,7 +291,12 @@ export const SunFilledIcon = ({
   </svg>
 );
 
-export const SearchIcon = (props: IconSvgProps) => (
+export const SearchIcon = ({
+  size=24,
+  width,
+  height,
+  ...props
+}: IconSvgProps) => (
   <svg
     aria-hidden="true"
     fill="none"

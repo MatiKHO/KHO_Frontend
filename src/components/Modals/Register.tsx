@@ -68,13 +68,13 @@ export const RegisterModal = ({
     <Modal
       isOpen={isOpen}
       placement="top-center"
-      onOpenChange={(open) => {
+      onOpenChange={(open: boolean) => {
         if (!open) onClose();
       }}
       backdrop="blur"
     >
       <ModalContent>
-        {(onClose) => (
+        {(onClose: () => void) => (
           <>
             <ModalHeader className="flex flex-col gap-1">
               ¡Únete a la madriguera!
@@ -85,7 +85,7 @@ export const RegisterModal = ({
                 endContent={<UserIcon className="text-xl text-[#c0172b] pointer-events-none flex-shrink-0" />}
                   type="text"
                   value={fullName}
-                  onChange={(e) => setFullName(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFullName(e.target.value)}
                   required
                   label="Nombre completo"
                   variant="flat"
@@ -96,7 +96,7 @@ export const RegisterModal = ({
                   type="email"
                   required
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                   label="Email"
                   variant="flat"
                 />
@@ -106,7 +106,7 @@ export const RegisterModal = ({
                   type="password"
                   required
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                   label="Contraseña"
                   variant="flat"
                 />
@@ -115,7 +115,7 @@ export const RegisterModal = ({
                   type="password"
                   required
                   value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)}
                   placeholder="Repite tu contraseña"
                   variant="flat"
                 />

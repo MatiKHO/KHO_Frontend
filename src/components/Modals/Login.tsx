@@ -37,14 +37,14 @@ export const  LoginModal = ({onOpenRegisterModal, isOpen, onClose}:LoginModalPro
     <Modal
       isOpen={isOpen}
       placement="top-center"
-      onOpenChange={(open) => {
+      onOpenChange={(open: boolean) => {
         if (!open) onClose();
       }}
       backdrop="blur"
       
     >
       <ModalContent>
-        {(onClose) => (
+        {(onClose: () => void) => (
           <>
             <ModalHeader className="flex flex-col gap-1">
               Iniciar sesión
@@ -57,7 +57,7 @@ export const  LoginModal = ({onOpenRegisterModal, isOpen, onClose}:LoginModalPro
                 label="Email"
                 placeholder="Introduce tu email"
                 variant="flat"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
               />
               <Input
                 endContent={
@@ -67,7 +67,7 @@ export const  LoginModal = ({onOpenRegisterModal, isOpen, onClose}:LoginModalPro
                 placeholder="Introduce tu contraseña"
                 type="password"
                 variant="flat"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
               />
               <div className="flex py-2 px-1 justify-between">
                 <Checkbox
