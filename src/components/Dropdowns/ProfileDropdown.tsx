@@ -10,14 +10,14 @@ type ProfileDropdownProps = {
     onLogin: () => void;
   }
 
-
-export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({ onRegister, onLogin }) => {
+export const ProfileDropdown: React.FC<ProfileDropdownProps> = (props: ProfileDropdownProps) => {
+    const { onRegister, onLogin } = props;
     const { isLoggedIn, logout } = useAuth();
   
     return (
       <Dropdown
         backdrop="blur"
-        onOpenChange={(isOpen) => {
+        onOpenChange={(isOpen: boolean) => {
           if (!isOpen) {
             document.getElementById("focusableElement")?.focus();
           }
@@ -59,7 +59,7 @@ export const ProfileDropdown: React.FC<ProfileDropdownProps> = ({ onRegister, on
       </Dropdown>
     );
   };
-  
 
-  
+
+
 

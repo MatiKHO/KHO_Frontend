@@ -10,7 +10,7 @@ import { LockIcon, MailIcon } from "../icons";
 import { Checkbox } from "@heroui/checkbox";
 import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
-// import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
 
 type LoginModalProps = {
@@ -20,7 +20,7 @@ type LoginModalProps = {
 }
 
 export const  LoginModal = ({onOpenRegisterModal, isOpen, onClose}:LoginModalProps) => {
-//   const { login } = useAuth();
+  const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -28,7 +28,7 @@ export const  LoginModal = ({onOpenRegisterModal, isOpen, onClose}:LoginModalPro
 
 
   const handleLogin = async () => {
-    // await login({ email, password });
+    await login({ email, password });
     onClose();
   };
 
@@ -96,7 +96,7 @@ export const  LoginModal = ({onOpenRegisterModal, isOpen, onClose}:LoginModalPro
                <Button style={{ color: "#f0f0f0", backgroundColor: bgColor }} variant="flat" onPress={onClose}>
                     Cerrar
                   </Button>
-               <Button type="submit" variant="shadow" style={{ backgroundColor: "white", color: "#c0172b" }} className="hover:animate-pulse">
+               <Button type="submit" variant="shadow" style={{ backgroundColor: "white", color: "#c0172b" }} className="hover:animate-pulse" onPress={handleLogin}>
                     Continuar
                   </Button>
             </ModalFooter>
