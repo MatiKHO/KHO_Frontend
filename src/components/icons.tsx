@@ -1,8 +1,8 @@
 import * as React from "react";
-import logokho from "@/../public/logokho.png";
-
 import { ImgHTMLAttributes } from "react";
 import { IconSvgProps } from "@/types";
+
+const logokho = "/logokho.png";
 
 export const Logo: React.FC<
   ImgHTMLAttributes<HTMLImageElement> & { size?: number }
@@ -141,7 +141,7 @@ export const ProfileIcon: React.FC<IconSvgProps> = ({
     >
       <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
       <path
-        fill-rule="evenodd"
+        fillRule="evenodd"
         d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
       />
     </svg>
@@ -240,7 +240,7 @@ export const HeartFilledIcon: React.FC<IconSvgProps> = ({
       {...props}
     >
       <path
-        fill-rule="evenodd"
+        fillRule="evenodd"
         d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"
       />
     </svg>
