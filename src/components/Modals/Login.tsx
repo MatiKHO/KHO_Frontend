@@ -94,7 +94,7 @@ export const  LoginModal = ({onOpenRegisterModal, isOpen, onClose}:LoginModalPro
                             onOpenRegisterModal();
                           }}
                         >
-                          Inicia sesión
+                          Olvidé mi contraseña
                         </Link>
               </div>
               {error && (
