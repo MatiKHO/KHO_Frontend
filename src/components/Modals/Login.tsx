@@ -23,13 +23,19 @@ export const  LoginModal = ({onOpenRegisterModal, isOpen, onClose}:LoginModalPro
   const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const bgColor = "#c0172b";
 
 
   const handleLogin = async () => {
-    await login({ email, password });
-    onClose();
+    try {
+      
+      await login({ email, password });
+      onClose();
+    } catch (error) {
+      setError("Credenciales incorrectas o error de servidor");
+    }
   };
 
 
@@ -91,6 +97,9 @@ export const  LoginModal = ({onOpenRegisterModal, isOpen, onClose}:LoginModalPro
                           Inicia sesión
                         </Link>
               </div>
+              {error && (
+                <div className="text-[#c0172b] text-sm text-center mt-2">{error}</div>
+              )}
             </ModalBody>
             <ModalFooter>
                <Button style={{ color: "#f0f0f0", backgroundColor: bgColor }} variant="flat" onPress={onClose}>

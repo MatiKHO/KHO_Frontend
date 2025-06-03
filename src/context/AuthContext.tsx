@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 type UserRegisterData = {
-  fullName: string;
+  name: string;
   email: string;
   password: string;
   age: number;
@@ -11,7 +11,7 @@ type UserRegisterData = {
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  user: { fullName: string; email: string; age: number } | null;
+  user: { name: string; email: string; age: number } | null;
   registerUser: (userData: UserRegisterData) => Promise<boolean>;
   login: (credentials: { email: string; password: string }) => Promise<void>;
   logout: () => void;
@@ -25,7 +25,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState<{ fullName: string; email: string; age: number } | null>(null);
+  const [user, setUser] = useState<{ name: string; email: string; age: number } | null>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   
 
   const registerUser = async (userData: (UserRegisterData)) => {
-    const response = await fetch(`${API_BASE}/api/users/register`, {
+    const response = await fetch(`${API_BASE}/users/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -87,7 +87,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const login = async (credentials: { email: string; password: string }) => {
     try {
-      const response = await fetch(`${API_BASE}/api/users/login`, {
+      const response = await fetch(`${API_BASE}/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
