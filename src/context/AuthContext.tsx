@@ -5,13 +5,12 @@ type UserRegisterData = {
   name: string;
   email: string;
   password: string;
-  age: number;
   location?: string | null;
 };
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  user: { name: string; email: string; age: number } | null;
+  user: { name: string; email: string; } | null;
   registerUser: (userData: UserRegisterData) => Promise<boolean>;
   login: (credentials: { email: string; password: string }) => Promise<void>;
   logout: () => void;
@@ -25,7 +24,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState<{ name: string; email: string; age: number } | null>(null);
+  const [user, setUser] = useState<{ name: string; email: string; } | null>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 

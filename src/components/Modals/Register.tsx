@@ -5,13 +5,12 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  //   useDisclosure,
 } from "@heroui/modal";
 import { useState } from "react";
 import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
 import { LockIcon, MailIcon, UserIcon } from "../icons";
-// import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/AuthContext";
 
 type RegisterModalProps = {
   isOpen: boolean;
@@ -24,8 +23,8 @@ export const RegisterModal = ({
   isOpen,
   onClose,
 }: RegisterModalProps) => {
-  //   const { registerUser } = useAuth();
-  const [fullName, setFullName] = useState("");
+    const { registerUser } = useAuth();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -50,11 +49,11 @@ export const RegisterModal = ({
 
     setError("");
 
-    // const userData = { fullName, email, password, age: parseInt(age, 10)};
+    const userData = { name, email, password};
 
     try {
-      //   const result = await registerUser(userData);
-      //   console.log("Usuario registrado exitosamente:", result);
+        const result = await registerUser(userData);
+        console.log("Usuario registrado exitosamente:", result);
       onClose();
       onOpenLoginModal();
     } catch (error: any) {
@@ -84,8 +83,8 @@ export const RegisterModal = ({
                 <Input
                 endContent={<UserIcon className="text-xl text-[#c0172b] pointer-events-none flex-shrink-0" />}
                   type="text"
-                  value={fullName}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFullName(e.target.value)}
+                  value={name}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
                   required
                   label="Nombre completo"
                   variant="flat"
