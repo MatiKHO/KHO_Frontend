@@ -30,9 +30,7 @@ export const  LoginModal = ({onOpenRegisterModal, isOpen, onClose}:LoginModalPro
 
   const handleLogin = async () => {
     try {
-      console.log("Intento de login:",  {email, password})
       await login({ email, password });
-      console.log("Login exitoso")
       onClose();
     } catch (error) {
       console.error("Login fallido:", error)

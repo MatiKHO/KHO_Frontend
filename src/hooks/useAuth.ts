@@ -1,26 +1,15 @@
-import { useState, useEffect } from "react";
+import { useContext } from "react";
+import { AuthContext } from "@/context/AuthContext";
 
 export const useAuth = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const loggedIn = localStorage.getItem("isLoggedIn");
-    setIsLoggedIn(loggedIn === "true");
-  }, []);
-
-  const login = () => {
-    localStorage.setItem("isLoggedIn", "true");
-    setIsLoggedIn(true);
-  };
-
-  const logout = () => {
-    localStorage.removeItem("isLoggedIn");
-    setIsLoggedIn(false);
-  };
-
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth debe ser usado dentro de un AuthProvider");
+  }
   return {
-    isLoggedIn,
-    login,
-    logout,
+    isLoggedIn: context.isAuthenticated,
+    logout: context.logout,
+    user: context.user,
+    login: context.login,
   };
 };
