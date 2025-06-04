@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
-import { LockIcon, MailIcon, UserIcon } from "../icons";
+import { ClosedEye, MailIcon, OpenEye, UserIcon } from "../icons";
 import { useAuth } from "@/context/AuthContext";
 
 type RegisterModalProps = {
@@ -23,13 +23,14 @@ export const RegisterModal = ({
   isOpen,
   onClose,
 }: RegisterModalProps) => {
-    const { registerUser } = useAuth();
+  const { registerUser } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [showLoginLink, setShowLoginLink] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,11 +50,11 @@ export const RegisterModal = ({
 
     setError("");
 
-    const userData = { name, email, password};
+    const userData = { name, email, password };
 
     try {
-        const result = await registerUser(userData);
-        console.log("Usuario registrado exitosamente:", result);
+      const result = await registerUser(userData);
+      console.log("Usuario registrado exitosamente:", result);
       onClose();
       onOpenLoginModal();
     } catch (error: any) {
@@ -81,46 +82,70 @@ export const RegisterModal = ({
             <ModalBody>
               <form onSubmit={handleSubmit} className="flex flex-col gap-1">
                 <Input
-                endContent={<UserIcon className="text-xl text-[#c0172b] pointer-events-none flex-shrink-0" />}
+                  endContent={
+                    <UserIcon className="text-xl text-[#c0172b] pointer-events-none flex-shrink-0" />
+                  }
                   type="text"
                   value={name}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setName(e.target.value)
+                  }
                   required
                   label="Nombre completo"
                   variant="flat"
                 ></Input>
                 <Input
-                endContent={<MailIcon className="text-xl text-[#c0172b] pointer-events-none flex-shrink-0" />
-                }
+                  endContent={
+                    <MailIcon className="text-xl text-[#c0172b] pointer-events-none flex-shrink-0" />
+                  }
                   type="email"
                   required
                   value={email}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setEmail(e.target.value)
+                  }
                   label="Email"
                   variant="flat"
                 />
                 <Input
-                endContent={<LockIcon className="text-xl text-[#c0172b] pointer-events-none flex-shrink-0" />
-                }
-                  type="password"
+                  endContent={
+                    <span
+                      style={{ cursor: "pointer" }}
+                      onClick={() => setShowPassword((prev) => !prev)}
+                    >
+                      {showPassword ? (
+                        <OpenEye className="text-xl text-[#c0172b]" />
+                      ) : (
+                        <ClosedEye className="text-xl text-[#c0172b]" />
+                      )}
+                    </span>
+                  }
+                  type={showPassword ? "text" : "password"}
                   required
                   value={password}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setPassword(e.target.value)
+                  }
                   label="Contraseña"
                   variant="flat"
                 />
                 <Input
-                
+                endContent={
+                  <span style={{ cursor: "pointer"}} onClick={() => setShowPassword((prev) => !prev)}>{showPassword ? (
+                    <OpenEye className="text-xl text-[#c0172b]"/>):(<ClosedEye className="text-xl text-[#c0172b]" />)}
+                  </span>}
                   type="password"
                   required
                   value={confirmPassword}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setConfirmPassword(e.target.value)
+                  }
                   placeholder="Repite tu contraseña"
                   variant="flat"
                 />
                 <div className="flex py-2 px-1 justify-between">
                   <Link
-                    style={{color: bgColor}}
+                    style={{ color: bgColor }}
                     href="#"
                     size="sm"
                     onPress={() => setShowLoginLink(true)}
@@ -134,27 +159,38 @@ export const RegisterModal = ({
                         transition: "opacity 0.3s ease-in-out",
                       }}
                     >
-                        <Link
-                          href="#"
-                          style={{ color: bgColor, transition: "opacity 0.3s" }}
-                          size="sm"
-                          onPress={async () => {
-                            onClose();
-                            // Wait for modal close animation (adjust timeout as needed)
-                            await new Promise((resolve) => setTimeout(resolve, 300));
-                            onOpenLoginModal();
-                          }}
-                        >
-                          Inicia sesión
-                        </Link>
+                      <Link
+                        href="#"
+                        style={{ color: bgColor, transition: "opacity 0.3s" }}
+                        size="sm"
+                        onPress={async () => {
+                          onClose();
+                          // Wait for modal close animation (adjust timeout as needed)
+                          await new Promise((resolve) =>
+                            setTimeout(resolve, 300)
+                          );
+                          onOpenLoginModal();
+                        }}
+                      >
+                        Inicia sesión
+                      </Link>
                     </div>
                   )}
                 </div>
                 <ModalFooter>
-                  <Button variant="shadow"  style={{backgroundColor: bgColor, color: "#f0f0f0"  }} onPress={onClose}>
+                  <Button
+                    variant="shadow"
+                    style={{ backgroundColor: bgColor, color: "#f0f0f0" }}
+                    onPress={onClose}
+                  >
                     Cerrar
                   </Button>
-                  <Button type="submit" variant="shadow" style={{ backgroundColor: "white", color: "#c0172b" }} className="hover:animate-pulse">
+                  <Button
+                    type="submit"
+                    variant="shadow"
+                    style={{ backgroundColor: "white", color: "#c0172b" }}
+                    className="hover:animate-pulse"
+                  >
                     Registrarse
                   </Button>
                   {error && (
