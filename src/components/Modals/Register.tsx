@@ -134,7 +134,7 @@ export const RegisterModal = ({
                   <span style={{ cursor: "pointer"}} onClick={() => setShowPassword((prev) => !prev)}>{showPassword ? (
                     <OpenEye className="text-xl text-[#c0172b]"/>):(<ClosedEye className="text-xl text-[#c0172b]" />)}
                   </span>}
-                  type="password"
+                  type={showPassword ? "text": "password"}
                   required
                   value={confirmPassword}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
