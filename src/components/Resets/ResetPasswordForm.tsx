@@ -13,14 +13,17 @@ export const ResetPasswordForm = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const bgColor = "#c0172b";
 
   const handleSubmit = async () => {
     setError("");
     setSuccess("");
+    setIsLoading(true);
 
     if (!newPassword || !confirmPassword) {
+        setIsLoading(false);
       return setError("Completa todos los campos");
     }
 
@@ -50,6 +53,8 @@ export const ResetPasswordForm = () => {
       setTimeout(() => navigate("/login"), 3000);
     } catch (err: any) {
       setError(err.message);
+    } finally {
+        setIsLoading(false);
     }
   };
 
@@ -83,11 +88,15 @@ export const ResetPasswordForm = () => {
           )}
 
           <Button
+          type="submit"
             className="w-full"
             style={{ backgroundColor: bgColor, color: "white" }}
             onPress={handleSubmit}
+            
+             isLoading={isLoading}
+            isDisabled={isLoading}
           >
-            Restablecer contraseña
+            {isLoading ? "Procesando..." : "Restablecer contraseña"}
           </Button>
         </CardBody>
       </Card>
